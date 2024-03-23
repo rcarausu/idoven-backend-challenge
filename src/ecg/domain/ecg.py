@@ -26,7 +26,12 @@ class Lead:
 
 
 @dataclass
+class EcgId:
+    value: str = field(default_factory=lambda: str(uuid.uuid4()))
+
+
+@dataclass
 class ECG:
-    ecg_id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    id: EcgId = field(default_factory=lambda: EcgId())
     create_date: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     leads: List[Lead] = field(default_factory=lambda: [])

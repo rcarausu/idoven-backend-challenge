@@ -1,0 +1,28 @@
+from freezegun import freeze_time
+
+from ecg.adapter.out.persistence.in_memory_ecg_persistence_adapter import InMemoryECGPersistenceAdapter
+from ecg.domain.ecg import ECG, EcgId, Lead
+
+
+class TestInMemoryEcgPersistenceAdapter:
+
+    _adapter = InMemoryECGPersistenceAdapter()
+
+    def test_it_saves_and_ecg(self):
+        # given
+        ecg = ECG(EcgId("id"))
+        # when
+        result = self._adapter.save(ecg)
+        # then
+        assert isinstance(result, EcgId)
+        assert result.value == "id"
+
+    @freeze_time()
+    def test_it_loads_an_ecg(self):
+        # given
+        ecg = ECG(EcgId("id"), leads=[Lead("V1", number_of_samples=3, signal=[-1, 0, 1])])
+        self._adapter.save(ecg)
+        # when
+        result = self._adapter.load(EcgId("id"))
+        # then
+        assert result == ECG(EcgId("id"), leads=[Lead("V1", number_of_samples=3, signal=[-1, 0, 1])])
