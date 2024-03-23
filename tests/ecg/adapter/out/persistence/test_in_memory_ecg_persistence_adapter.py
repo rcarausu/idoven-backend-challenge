@@ -1,6 +1,6 @@
 from freezegun import freeze_time
 
-from ecg.adapter.out.persistence.in_memory_ecg_persistence_adapter import InMemoryEcgPersistenceAdapter
+from ecg.adapter.out_adapters.persistence.in_memory_ecg_persistence_adapter import InMemoryEcgPersistenceAdapter
 from ecg.application.port.out.load_ecg_port import LoadEcgQuery
 from ecg.application.port.out.save_ecg_port import SaveEcgCommand
 from ecg.domain.ecg import ECG, EcgId, Lead

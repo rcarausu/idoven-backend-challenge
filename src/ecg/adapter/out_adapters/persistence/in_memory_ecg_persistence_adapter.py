@@ -11,7 +11,7 @@ class InMemoryEcgPersistenceAdapter(LoadEcgPort, SaveEcgPort):
         self.__ecg_repository = {}
 
     def load(self, query: LoadEcgQuery) -> Optional[ECG]:
-        # O(1) retrieval for average case or O(n) in worst case (hash collisions or too high load factor)
+        # O(1) retrieval for average case or O(n) in_adapters worst case (hash collisions or too high load factor)
         return self.__ecg_repository.get(query.ecg_id.value, None)
 
     def save(self, command: SaveEcgCommand) -> EcgId:
