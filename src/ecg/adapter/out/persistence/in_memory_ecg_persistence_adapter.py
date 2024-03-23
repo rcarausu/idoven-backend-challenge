@@ -1,20 +1,20 @@
 from typing import Optional
 
-from ecg.application.port.out.load_ecg_port import LoadECGPort
-from ecg.application.port.out.save_ecg_port import SaveECGPort
+from ecg.application.port.out.load_ecg_port import LoadEcgPort, LoadEcgQuery
+from ecg.application.port.out.save_ecg_port import SaveEcgPort, SaveEcgCommand
 from ecg.domain.ecg import ECG, EcgId
 
 
-class InMemoryECGPersistenceAdapter(LoadECGPort, SaveECGPort):
+class InMemoryEcgPersistenceAdapter(LoadEcgPort, SaveEcgPort):
 
     def __init__(self):
         self.__ecg_repository = {}
 
-    def load(self, ecg_id: EcgId) -> Optional[ECG]:
+    def load(self, query: LoadEcgQuery) -> Optional[ECG]:
         # O(1) retrieval for average case or O(n) in worst case (hash collisions or too high load factor)
-        return self.__ecg_repository.get(ecg_id.value, None)
+        return self.__ecg_repository.get(query.ecg_id.value, None)
 
-    def save(self, ecg: ECG) -> EcgId:
+    def save(self, command: SaveEcgCommand) -> EcgId:
         # O(1) insertion by using a dictionary
-        self.__ecg_repository[ecg.id.value] = ecg
-        return ecg.id
+        self.__ecg_repository[command.ecg.id.value] = command.ecg
+        return command.ecg.id

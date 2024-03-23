@@ -1,10 +1,16 @@
 from abc import ABCMeta, abstractmethod
+from dataclasses import dataclass
 from typing import Optional
 
 from ecg.domain.ecg import ECG, EcgId
 
 
-class LoadECGPort(metaclass=ABCMeta):
+@dataclass
+class LoadEcgQuery:
+    ecg_id: EcgId
+
+
+class LoadEcgPort(metaclass=ABCMeta):
     @abstractmethod
-    def load(self, ecg_id: EcgId) -> Optional[ECG]:
+    def load(self, query: LoadEcgQuery) -> Optional[ECG]:
         raise NotImplementedError
