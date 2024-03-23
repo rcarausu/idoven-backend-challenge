@@ -34,4 +34,4 @@ class EcgId:
 class ECG:
     id: EcgId = field(default_factory=lambda: EcgId())
     create_date: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
-    leads: List[Lead] = field(default_factory=lambda: [])
+    leads: List[Lead] = field(default_factory=list)
