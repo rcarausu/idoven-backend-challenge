@@ -33,7 +33,7 @@ class TestLead:
 
 class TestECG:
 
-    @patch('ecg.domain.ecg.uuid.uuid4', return_value="uuid4_generated_id")
+    @patch('src.ecg.domain.ecg.uuid.uuid4', return_value="uuid4_generated_id")
     @freeze_time("2024-01-01")
     def test_it_creates_ecg_with_default_values(self, mocker):
         # when
