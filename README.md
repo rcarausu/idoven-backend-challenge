@@ -1,44 +1,77 @@
-# Backend Coding Challenge
+# ECG (electrocardiograms) service
 
-## Introduction
+This repository contains the code of a microservice that allows users to register or store ECGs for processing, 
+and then query various insights about them, such as the number of zero crossings of the signal.
 
-Welcome to our coding challenge! Congratulations on successfully progressing to this stage. We appreciate the time you've invested in our selection process, and we wish you the best of luck!
+## Description
 
-At Idoven, we have a specific requirement. We aim to implement a microservice that accepts electrocardiograms (ECG) and provides various insights about them, such as calculating the number of zero crossings of the signal.
+The project is built using Python + FastAPI stack, following _**Hexagonal**_
+(also known as _**Ports and Adapters**_) architectural style and a simplistic approach of the CQRS pattern.
 
-## ECG Description
+In the following image ([source](https://betterprogramming.pub/a-quick-and-practical-example-of-hexagonal-architecture-in-java-8d57c419250d)), we can see a diagram representing the different parts that may for a
+system following this architecture design:
 
-An ECG is characterized by a sequence of numerical values, which can be either positive or negative.
+![hexagonal_architecture](resources/hexagonal_architecture.png)
 
-## Task
+The directory structure is as follows:
+- [src](src) &rarr; main package with all the source code.
+  - [ecg](src/ecg) &rarr; package with all the code related to the ECG feature.
+    - [adapter](src/ecg/adapter) &rarr; implementations of the interfaces (ports) that communicate with the application core.
+        There are two types of adapters:
+      - *in_adapters* &rarr; they are implementations of external systems that communicate *inwards* with the 
+      application, such as HTTP, etc.
+      - *out_adapters* &rarr; they are implementations of external system that communicate *outwards* with the
+      application, such as databases, etc.
+    - [application](src/ecg/application) &rarr; [ports](src/ecg/application/port) (interfaces) that adapters implement for 
+    communication with the application core. There are two types as well, *in_ports* and *out_ports*, following the
+    same logic as with adapters.
+    Here we can also find the [service](src/ecg/application/service) package, which add another layer for further 
+    segregation of dependencies between domain entities and adapter implementations.
+    - [domain](src/ecg/domain) &rarr; main domain model and business logic of the application.
 
-Your task is to create an API that offers two main endpoints:
-1. An endpoint to receive the ECGs for processing.
-2. An endpoint to return the associated insights.
+## Running
 
-### ECG Structure
+* Install Python 3.11. You can use [pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation) 
+to install the required Python version.
+```shell
+pyenv install 3.11.7
+```
 
-- **id**: A unique identifier for each ECG.
-- **date**: The date of creation.
-- **leads**: A list containing:
-  - **name**: The lead identifier (e.g., I, II, III, aVR, aVL, aVF, V1, V2…).
-  - **number of samples**: The sample size of the signal. Note: This value might not always be present.
-  - **signal**: A list of integer values.
+* Set it up as the global version.
+```shell
+pyenv global 3.11.7
+```
 
-The information to be returned by the endpoint should indicate the number of times each ECG channel crosses zero. At this stage, we don't require any other data.
+* Create the virtual environment with the [pyenv virtualenv plugin](https://github.com/pyenv/pyenv-virtualenv).
+```shell
+pyenv virtualenv 3.11.7 idoven-venv-3.11.7
+```
 
-## Technical Specifications
+* Activate it
+```shell
+pyenv activate idoven-venv-3.11.7
+```
 
-In undertaking this assignment, you're afforded the autonomy to select your preferred programming language, technologies, frameworks, documentation techniques, and testing strategy. We highly value solutions that prioritize readability, maintainability, and the thoughtful application of design patterns and architectural principles. While you have flexibility, keep in mind our primary tech stack revolves around Python and FastAPI.
+* Install the dependencies
+```shell
+pip install -r requirements.txt
+```
 
-### Scalability
+* Launch the app using the built-in uvicorn server
+```shell
+uvicorn src.main:app --reload
+```
 
-It's important to design this service with scalability in mind. We anticipate adding more features, and the data retrieval endpoint will eventually provide more extensive data analyses.
+* When done, you can clean the virtual environment using the following commands
+```shell
+pyenv deactivate
 
-### Security
+pyenv uninstall idoven-venv-3.11.7
+```
 
-Considering the possibility of offering this service to external clients in the future, integrating user authentication for both endpoints is essential. Ensure that users can access only the ECGs they've uploaded. It would be beneficial to have an ADMIN role solely for registering new users, without the privilege to send or retrieve ECG data.
+## Testing
 
-## Submission
-
-Please provide us with the link to your solution on the GitHub repository.
+After installing dependencies, just run pytest to execute the tests.
+```shell
+pytest -v --cov tests
+```
