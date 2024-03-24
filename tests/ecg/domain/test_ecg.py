@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 from freezegun import freeze_time
 
-from ecg.domain.ecg import Lead, ECG, EcgId
+from src.ecg.domain.ecg import Lead, ECG, EcgId
 
 
 class TestLead:

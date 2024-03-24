@@ -1,9 +1,8 @@
-
 from abc import abstractmethod, ABCMeta
 from dataclasses import dataclass
 
-from ecg.domain.ecg import EcgId
-from ecg.domain.insights import Insights
+from src.ecg.domain.ecg import EcgId
+from src.ecg.domain.insights import Insights
 
 
 @dataclass

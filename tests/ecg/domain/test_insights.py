@@ -1,6 +1,6 @@
 import pytest
 
-from ecg.domain.insights import Insights
+from src.ecg.domain.insights import Insights
 
 
 class TestInsights:

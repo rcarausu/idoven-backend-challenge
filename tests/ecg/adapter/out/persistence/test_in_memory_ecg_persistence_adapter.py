@@ -1,9 +1,7 @@
 from freezegun import freeze_time
 
-from ecg.adapter.out_adapters.persistence.in_memory_ecg_persistence_adapter import InMemoryEcgPersistenceAdapter
-from ecg.application.port.out.load_ecg_port import LoadEcgQuery
-from ecg.application.port.out.save_ecg_port import SaveEcgCommand
-from ecg.domain.ecg import ECG, EcgId, Lead
+from src.ecg.adapter.out_adapters.persistence.in_memory_ecg_persistence_adapter import InMemoryEcgPersistenceAdapter
+from src.ecg.domain.ecg import ECG, EcgId, Lead
 
 
 class TestInMemoryEcgPersistenceAdapter:
@@ -14,7 +12,7 @@ class TestInMemoryEcgPersistenceAdapter:
         # given
         ecg = ECG(EcgId("id"))
         # when
-        result = self._adapter.save(SaveEcgCommand(ecg))
+        result = self._adapter.save(ecg)
         # then
         assert isinstance(result, EcgId)
         assert result.value == "id"
@@ -23,8 +21,8 @@ class TestInMemoryEcgPersistenceAdapter:
     def test_it_loads_an_ecg(self):
         # given
         ecg = ECG(EcgId("id"), leads=[Lead("V1", number_of_samples=3, signal=[-1, 0, 1])])
-        self._adapter.save(SaveEcgCommand(ecg))
+        self._adapter.save(ecg)
         # when
-        result = self._adapter.load(LoadEcgQuery(EcgId("id")))
+        result = self._adapter.get(EcgId("id"))
         # then
         assert result == ECG(EcgId("id"), leads=[Lead("V1", number_of_samples=3, signal=[-1, 0, 1])])
