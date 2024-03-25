@@ -1,12 +1,15 @@
 from abc import abstractmethod, ABCMeta
 from dataclasses import dataclass
+from typing import List
 
-from src.ecg.domain.ecg import EcgId, ECG
+from src.ecg.domain.ecg import EcgId, Lead
+from src.ecg.domain.user import UserToken
 
 
 @dataclass
 class RegisterEcgCommand:
-    ecg: ECG
+    user_token: UserToken
+    leads: List[Lead]
 
 
 class RegisterEcgUseCase(metaclass=ABCMeta):

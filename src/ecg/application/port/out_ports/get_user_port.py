@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import Optional
 
-from src.ecg.domain.user import User, UserId
+from src.ecg.domain.user import User, UserId, UserToken
 
 
 class UserNotFoundError(Exception):
@@ -12,5 +12,8 @@ class UserNotFoundError(Exception):
 
 class GetUserPort(metaclass=ABCMeta):
     @abstractmethod
-    def get(self, user_id: UserId) -> Optional[User]:
+    def get_by_id(self, user_id: UserId) -> Optional[User]:
+        raise NotImplementedError
+
+    def get_by_token(self, user_token: UserToken) -> Optional[User]:
         raise NotImplementedError

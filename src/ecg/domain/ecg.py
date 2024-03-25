@@ -3,6 +3,8 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import List, Optional
 
+from src.ecg.domain.user import UserId
+
 
 @dataclass
 class Lead:
@@ -32,6 +34,7 @@ class EcgId:
 
 @dataclass
 class ECG:
+    user_id: UserId
     id: EcgId = field(default_factory=lambda: EcgId())
     create_date: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     leads: List[Lead] = field(default_factory=list)

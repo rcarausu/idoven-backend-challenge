@@ -1,5 +1,6 @@
 from typing import Optional
 
+from src.ecg.domain.user import UserId
 from src.ecg.application.port.out_ports.get_ecg_port import GetEcgPort
 from src.ecg.application.port.out_ports.save_ecg_port import SaveEcgPort
 from src.ecg.domain.ecg import ECG, EcgId
