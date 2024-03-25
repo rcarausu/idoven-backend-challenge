@@ -11,7 +11,7 @@ class LeadInputModel(BaseModel):
     signal: List[int]
 
 
-class ECGInputModel(BaseModel):
+class RegisterEsgInputModel(BaseModel):
     leads: list[LeadInputModel]
 
     def as_ecg(self) -> ECG:
@@ -24,6 +24,15 @@ class ECGInputModel(BaseModel):
                     signal=lead_model.signal
                 ))
         return ECG(leads=leads)
+
+
+class RegisterUserInputModel(BaseModel):
+    username: str
+
+
+class RegisterUserResponseModel(BaseModel):
+    username: str
+    token: str
 
 
 class SaveEcgResponseModel(BaseModel):

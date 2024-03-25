@@ -5,7 +5,7 @@ from starlette.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_404_NOT_FOUND
 
 from src.dependencies import RegisterEcgServiceDep, LoadEcgInsightsServiceDep
 from src.ecg.adapter.in_adapters.web.models import (
-    ECGInputModel,
+    RegisterEsgInputModel,
     SaveEcgResponseModel, InsightsResponseModel, InsightResponseModel
 )
 from src.ecg.application.port.in_ports.load_ecg_insights_use_case import LoadEcgInsightsQuery
@@ -17,7 +17,7 @@ router = APIRouter()
 
 
 @router.post("", status_code=HTTP_201_CREATED)
-def register_ecg(ecg_model: ECGInputModel, service: RegisterEcgServiceDep):
+def register_ecg(ecg_model: RegisterEsgInputModel, service: RegisterEcgServiceDep):
     ecg_id = service.register_ecg(RegisterEcgCommand(ecg_model.as_ecg()))
     return SaveEcgResponseModel(id=ecg_id.value)
 
@@ -34,4 +34,5 @@ def load_ecg_insights(ecg_id: str, service: LoadEcgInsightsServiceDep):
         return Response(
             content=json.dumps({"message": e.message}),
             status_code=HTTP_404_NOT_FOUND,
-            media_type="application/json")
+            media_type="application/json"
+        )

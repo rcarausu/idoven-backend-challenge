@@ -31,7 +31,7 @@ class TestRegisterEcgRouter:
         self.mocked_service.register_ecg.return_value = EcgId("uuid4_generated_id")
         # when
         response = client.post(
-            "/ecg",
+            "/ecgs",
             json={
                 "leads": [
                     {
@@ -57,7 +57,7 @@ class TestLoadEcgInsightsRouter:
         app.dependency_overrides[load_ecg_insights_service] = self.mocked_load_ecg_insights_service
 
     def teardown_method(self):
-        # reseting side effect of mocked object, otherwise it's propagated to other test cases
+        # resetting side effect of mocked object, otherwise it's propagated to other test cases
         self.mocked_service.get_insights.side_effect = None
         app.dependency_overrides = {}
 
@@ -65,7 +65,7 @@ class TestLoadEcgInsightsRouter:
         # given
         self.mocked_service.get_insights.side_effect = EcgNotFoundError(EcgId("uuid4_generated_id"))
         # when
-        response = client.get("/ecg/uuid4_generated_id/insights")
+        response = client.get("/ecgs/uuid4_generated_id/insights")
         # then
         assert response.status_code == 404
         assert response.json() == {
@@ -81,7 +81,7 @@ class TestLoadEcgInsightsRouter:
             ]
         )
         # when
-        response = client.get("/ecg/uuid4_generated_id/insights")
+        response = client.get("/ecgs/uuid4_generated_id/insights")
         # then
         assert response.status_code == 200
         assert response.json() == {

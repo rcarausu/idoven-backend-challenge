@@ -8,7 +8,7 @@ class TestInMemoryEcgPersistenceAdapter:
 
     _adapter = InMemoryEcgPersistenceAdapter()
 
-    def test_it_saves_and_ecg(self):
+    def test_it_saves_an_ecg(self):
         # given
         ecg = ECG(EcgId("id"))
         # when
@@ -18,7 +18,7 @@ class TestInMemoryEcgPersistenceAdapter:
         assert result.value == "id"
 
     @freeze_time()
-    def test_it_loads_an_ecg(self):
+    def test_it_retrieves_an_ecg(self):
         # given
         ecg = ECG(EcgId("id"), leads=[Lead("V1", number_of_samples=3, signal=[-1, 0, 1])])
         self._adapter.save(ecg)
