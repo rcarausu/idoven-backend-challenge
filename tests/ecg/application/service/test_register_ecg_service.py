@@ -1,11 +1,10 @@
-from src.ecg.application.port.in_ports.models.ecg_model import ECGModel, LeadModel
 from src.ecg.application.port.in_ports.register_ecg_use_case import RegisterEcgCommand
 from src.ecg.application.port.out_ports.save_ecg_port import SaveEcgPort
 from src.ecg.application.service.register_ecg_service import RegisterEcgService
 
 from unittest.mock import Mock
 
-from src.ecg.domain.ecg import EcgId
+from src.ecg.domain.ecg import EcgId, Lead, ECG
 
 
 class TestRegisterEcgService:
@@ -16,9 +15,9 @@ class TestRegisterEcgService:
 
     def test_it_should_register_ecg(self):
         # given
-        ecg_model = ECGModel(
+        ecg_model = ECG(
             leads=[
-                LeadModel(
+                Lead(
                     name="I",
                     number_of_samples=3,
                     signal=[1, 0, -1]

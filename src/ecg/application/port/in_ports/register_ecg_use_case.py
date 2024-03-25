@@ -1,13 +1,12 @@
 from abc import abstractmethod, ABCMeta
 from dataclasses import dataclass
 
-from src.ecg.application.port.in_ports.models.ecg_model import ECGModel
-from src.ecg.domain.ecg import EcgId
+from src.ecg.domain.ecg import EcgId, ECG
 
 
 @dataclass
 class RegisterEcgCommand:
-    ecg: ECGModel
+    ecg: ECG
 
 
 class RegisterEcgUseCase(metaclass=ABCMeta):
