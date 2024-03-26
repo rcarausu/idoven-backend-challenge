@@ -47,7 +47,7 @@ class TestRegisterEcgRouter:
         )
         # then
         assert response.status_code == 401
-        assert response.json() == {"message": "Invalid user token"}
+        assert response.json() == {"detail": "Invalid user token"}
 
     def test_it_registers_ecg(self):
         # given
@@ -93,7 +93,7 @@ class TestLoadEcgInsightsRouter:
         # then
         assert response.status_code == 404
         assert response.json() == {
-            "message": "ECG not found for id uuid4_generated_id"
+            "detail": "ECG not found for id uuid4_generated_id"
         }
 
     def test_it_returns_unauthorized_if_token_is_invalid(self):
@@ -104,7 +104,7 @@ class TestLoadEcgInsightsRouter:
         # then
         assert response.status_code == 401
         assert response.json() == {
-            "message": "Invalid user token"
+            "detail": "Invalid user token"
         }
 
     def test_it_returns_insights(self):

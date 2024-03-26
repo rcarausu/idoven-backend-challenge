@@ -1,7 +1,6 @@
-import json
 from typing import Annotated
 
-from fastapi import APIRouter, Response, Header
+from fastapi import APIRouter, Header, HTTPException
 from starlette.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_404_NOT_FOUND, HTTP_401_UNAUTHORIZED
 
 from src.dependencies import RegisterEcgServiceDep, LoadEcgInsightsServiceDep
@@ -9,9 +8,9 @@ from src.ecg.adapter.in_adapters.web.models import (
     RegisterEsgInputModel,
     SaveEcgResponseModel, InsightsResponseModel, InsightResponseModel
 )
+from src.ecg.application.port.in_ports.errors import InvalidUserTokenError
 from src.ecg.application.port.in_ports.load_ecg_insights_use_case import LoadEcgInsightsQuery
 from src.ecg.application.port.in_ports.register_ecg_use_case import RegisterEcgCommand
-from src.ecg.application.port.in_ports.errors import InvalidUserTokenError
 from src.ecg.application.port.out_ports.get_ecg_port import EcgNotFoundError
 from src.ecg.domain.ecg import EcgId, Lead
 from src.user.domain.user import UserToken
@@ -34,11 +33,7 @@ def register_ecg(
         ecg_id = register_ecg_service.register_ecg(command)
         return SaveEcgResponseModel(id=ecg_id.value)
     except InvalidUserTokenError as e:
-        return Response(
-            content=json.dumps({"message": e.message}),
-            status_code=HTTP_401_UNAUTHORIZED,
-            media_type="application/json"
-        )
+        raise HTTPException(HTTP_401_UNAUTHORIZED, detail=e.message)
 
 
 @router.get("/{ecg_id}/insights", status_code=HTTP_200_OK)
@@ -51,14 +46,6 @@ def load_ecg_insights(ecg_id: str, x_user_token: Annotated[str | None, Header()]
                    for lead in insights.leads]
         )
     except InvalidUserTokenError as e:
-        return Response(
-            content=json.dumps({"message": e.message}),
-            status_code=HTTP_401_UNAUTHORIZED,
-            media_type="application/json"
-        )
+        raise HTTPException(HTTP_401_UNAUTHORIZED, detail=e.message)
     except EcgNotFoundError as e:
-        return Response(
-            content=json.dumps({"message": e.message}),
-            status_code=HTTP_404_NOT_FOUND,
-            media_type="application/json"
-        )
+        raise HTTPException(HTTP_404_NOT_FOUND, detail=e.message)

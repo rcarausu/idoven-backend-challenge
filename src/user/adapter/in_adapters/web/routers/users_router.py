@@ -1,7 +1,6 @@
-import json
 from typing import Annotated
 
-from fastapi import APIRouter, Response, Header
+from fastapi import APIRouter, Header, HTTPException
 from starlette.status import HTTP_201_CREATED, HTTP_401_UNAUTHORIZED
 
 from src.dependencies import RegisterUserServiceDep
@@ -23,8 +22,4 @@ def register_user(
         service.register_user(RegisterUserCommand(AdminToken(x_admin_token), user))
         return RegisterUserResponseModel(username=user.username, token=user.token.value)
     except InvalidAdminTokenError as e:
-        return Response(
-            content=json.dumps({"message": e.message}),
-            status_code=HTTP_401_UNAUTHORIZED,
-            media_type="application/json"
-        )
+        raise HTTPException(HTTP_401_UNAUTHORIZED, detail=e.message)
