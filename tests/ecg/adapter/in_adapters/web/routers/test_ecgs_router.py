@@ -5,10 +5,10 @@ from fastapi.testclient import TestClient
 from src.dependencies import register_ecg_service, load_ecg_insights_service
 from src.ecg.application.port.in_ports.errors import InvalidUserTokenError
 from src.ecg.application.port.out_ports.get_ecg_port import EcgNotFoundError
-from src.ecg.application.service.load_ecg_insights_service import LoadEcgInsightsService
+from src.insights.application.service.load_ecg_insights_service import LoadEcgInsightsService
 from src.ecg.application.service.register_ecg_service import RegisterEcgService
 from src.ecg.domain.ecg import EcgId
-from src.ecg.domain.insights import Insights, Insight
+from src.insights.domain.insights import Insights, Insight
 from src.main import app
 
 client = TestClient(app)

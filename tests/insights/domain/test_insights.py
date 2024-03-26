@@ -2,7 +2,7 @@ import pytest
 from freezegun import freeze_time
 
 from src.ecg.domain.ecg import EcgId
-from src.ecg.domain.insights import Insights, Insight
+from src.insights.domain.insights import Insights, Insight
 
 
 class TestInsights:

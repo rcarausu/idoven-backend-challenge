@@ -9,7 +9,7 @@ from src.ecg.adapter.in_adapters.web.models import (
     SaveEcgResponseModel, InsightsResponseModel, InsightResponseModel
 )
 from src.ecg.application.port.in_ports.errors import InvalidUserTokenError
-from src.ecg.application.port.in_ports.load_ecg_insights_use_case import LoadEcgInsightsQuery
+from src.insights.application.port.in_ports.load_ecg_insights_use_case import LoadEcgInsightsQuery
 from src.ecg.application.port.in_ports.register_ecg_use_case import RegisterEcgCommand
 from src.ecg.application.port.out_ports.get_ecg_port import EcgNotFoundError
 from src.ecg.domain.ecg import EcgId, Lead

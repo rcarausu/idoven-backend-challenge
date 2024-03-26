@@ -6,10 +6,10 @@ from freezegun import freeze_time
 
 from src.user.application.port.out_ports.get_user_port import GetUserPort
 from src.user.domain.user import UserId, UserToken, User
-from src.ecg.application.port.in_ports.load_ecg_insights_use_case import LoadEcgInsightsQuery
+from src.insights.application.port.in_ports.load_ecg_insights_use_case import LoadEcgInsightsQuery
 from src.ecg.application.port.out_ports.get_ecg_port import GetEcgPort, EcgNotFoundError
-from src.ecg.application.service.load_ecg_insights_service import LoadEcgInsightsService
-from src.ecg.domain.insights import Insights, Insight
+from src.insights.application.service.load_ecg_insights_service import LoadEcgInsightsService
+from src.insights.domain.insights import Insights, Insight
 from src.ecg.domain.ecg import EcgId, ECG, Lead
 
 

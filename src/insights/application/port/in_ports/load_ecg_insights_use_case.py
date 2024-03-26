@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from src.user.domain.user import UserToken
 from src.ecg.domain.ecg import EcgId
-from src.ecg.domain.insights import Insights
+from src.insights.domain.insights import Insights
 
 
 @dataclass

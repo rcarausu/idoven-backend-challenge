@@ -1,8 +1,8 @@
 from src.ecg.application.port.in_ports.errors import InvalidUserTokenError
-from src.ecg.application.port.in_ports.load_ecg_insights_use_case import LoadEcgInsightsUseCase, LoadEcgInsightsQuery
+from src.insights.application.port.in_ports.load_ecg_insights_use_case import LoadEcgInsightsUseCase, LoadEcgInsightsQuery
 from src.ecg.application.port.out_ports.get_ecg_port import GetEcgPort, EcgNotFoundError
 from src.user.application.port.out_ports.get_user_port import GetUserPort
-from src.ecg.domain.insights import Insights, Insight
+from src.insights.domain.insights import Insights, Insight
 
 
 class LoadEcgInsightsService(LoadEcgInsightsUseCase):
