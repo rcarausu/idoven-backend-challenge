@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 
 from src.api_router import api_router
 
@@ -13,6 +13,15 @@ app = FastAPI(
     },
 )
 
+health_router = APIRouter()
+
+
+@health_router.get("/ping")
+def ping():
+    return "pong"
+
+
+app.include_router(health_router, prefix="/health", tags=["health"])
 app.include_router(api_router)
 
 if __name__ == "__main__":
