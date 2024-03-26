@@ -11,9 +11,7 @@ class UserNotFoundError(Exception):
 
 
 class GetUserPort(metaclass=ABCMeta):
-    @abstractmethod
-    def get_by_id(self, user_id: UserId) -> Optional[User]:
-        raise NotImplementedError
 
+    @abstractmethod
     def get_by_token(self, user_token: UserToken) -> Optional[User]:
         raise NotImplementedError

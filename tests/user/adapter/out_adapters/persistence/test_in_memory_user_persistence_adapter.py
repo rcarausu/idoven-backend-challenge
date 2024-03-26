@@ -19,23 +19,6 @@ class TestInMemoryEcgPersistenceAdapter:
         assert result.value == "id"
         assert user.username == "username"
 
-    @freeze_time()
-    @patch('src.user.domain.user.uuid.uuid4', return_value="uuid4_generated_id")
-    def test_it_retrieves_an_user(self, mocker):
-        # given
-        user = User("username")
-        self._adapter.save(user)
-        # when
-        result = self._adapter.get_by_id(UserId("uuid4_generated_id"))
-        # then
-        assert result == User("username")
-
-    def test_it_returns_nothing_if_user_not_found_by_id(self):
-        # when
-        result = self._adapter.get_by_id(UserId())
-        # then
-        assert result is None
-
     def test_it_returns_nothing_if_user_not_found_by_token(self):
         # when
         result = self._adapter.get_by_token(UserToken())
