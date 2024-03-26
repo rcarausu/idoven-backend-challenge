@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from src.ecg.domain.user import UserId, User
+from src.user.domain.user import UserId, User
 
 
 class SaveUserPort(metaclass=ABCMeta):

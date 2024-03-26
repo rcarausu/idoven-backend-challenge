@@ -1,7 +1,7 @@
 from abc import abstractmethod, ABCMeta
 from dataclasses import dataclass
 
-from src.ecg.domain.user import User, UserId
+from src.user.domain.user import User, UserId
 
 
 class InvalidAdminTokenError(Exception):

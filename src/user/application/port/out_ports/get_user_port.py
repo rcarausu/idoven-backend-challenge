@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import Optional
 
-from src.ecg.domain.user import User, UserId, UserToken
+from src.user.domain.user import User, UserId, UserToken
 
 
 class UserNotFoundError(Exception):

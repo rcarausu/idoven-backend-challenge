@@ -14,7 +14,7 @@ from src.ecg.application.port.in_ports.register_ecg_use_case import RegisterEcgC
 from src.ecg.application.port.in_ports.errors import InvalidUserTokenError
 from src.ecg.application.port.out_ports.get_ecg_port import EcgNotFoundError
 from src.ecg.domain.ecg import EcgId, Lead
-from src.ecg.domain.user import UserToken
+from src.user.domain.user import UserToken
 
 router = APIRouter()
 

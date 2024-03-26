@@ -1,15 +1,15 @@
 from typing import Optional
 
-from src.ecg.domain.user import UserToken
-from src.ecg.application.port.out_ports.get_user_port import GetUserPort
-from src.ecg.application.port.out_ports.save_user_port import SaveUserPort
-from src.ecg.domain.user import UserId, User
+from src.user.domain.user import UserToken
+from src.user.application.port.out_ports.get_user_port import GetUserPort
+from src.user.application.port.out_ports.save_user_port import SaveUserPort
+from src.user.domain.user import UserId, User
 
 
 class InMemoryUserPersistenceAdapter(GetUserPort, SaveUserPort):
 
-    def __init__(self):
-        self.__repository = {}
+    def __init__(self, repository: dict):
+        self.__repository = repository
 
     def get_by_id(self, user_id: UserId) -> Optional[User]:
         # O(1) retrieval for average case or O(n) in_adapters worst case (hash collisions or too high load factor)

@@ -4,15 +4,18 @@ from fastapi import Depends
 
 from src.configuration import configuration
 from src.ecg.adapter.out_adapters.persistence.in_memory_ecg_persistence_adapter import InMemoryEcgPersistenceAdapter
-from src.ecg.adapter.out_adapters.persistence.in_memory_user_persistence_adapter import InMemoryUserPersistenceAdapter
-from src.ecg.application.port.in_ports.register_user_use_case import AdminToken
+from src.user.adapter.out_adapters.in_memory_user_persistence_adapter import InMemoryUserPersistenceAdapter
+from src.user.application.port.in_ports.register_user_use_case import AdminToken
 from src.ecg.application.service.load_ecg_insights_service import LoadEcgInsightsService
 from src.ecg.application.service.register_ecg_service import RegisterEcgService
-from src.ecg.application.service.register_user_service import RegisterUserService
+from src.user.application.service.register_user_service import RegisterUserService
 
-in_memory_ecg_persistence_adapter = InMemoryEcgPersistenceAdapter()
 
-in_memory_user_persistence_adapter = InMemoryUserPersistenceAdapter()
+in_memory_ecg_repository = {}
+in_memory_ecg_persistence_adapter = InMemoryEcgPersistenceAdapter(in_memory_ecg_repository)
+
+in_memory_user_repository = {}
+in_memory_user_persistence_adapter = InMemoryUserPersistenceAdapter(in_memory_user_repository)
 
 
 def register_ecg_service() -> RegisterEcgService:

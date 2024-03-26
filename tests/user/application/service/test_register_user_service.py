@@ -1,12 +1,12 @@
 import pytest
 
-from src.ecg.application.port.in_ports.register_user_use_case import InvalidAdminTokenError, AdminToken
-from src.ecg.application.port.out_ports.save_user_port import SaveUserPort
-from src.ecg.application.service.register_user_service import RegisterUserCommand, RegisterUserService
+from src.user.application.port.in_ports.register_user_use_case import InvalidAdminTokenError, AdminToken
+from src.user.application.port.out_ports.save_user_port import SaveUserPort
+from src.user.application.service.register_user_service import RegisterUserCommand, RegisterUserService
 
 from unittest.mock import Mock
 
-from src.ecg.domain.user import UserId, User
+from src.user.domain.user import UserId, User
 
 
 class TestRegisterUserService:

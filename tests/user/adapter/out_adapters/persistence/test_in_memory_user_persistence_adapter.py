@@ -2,12 +2,12 @@ from unittest.mock import patch
 
 from freezegun import freeze_time
 
-from src.ecg.adapter.out_adapters.persistence.in_memory_user_persistence_adapter import InMemoryUserPersistenceAdapter
-from src.ecg.domain.user import User, UserId, UserToken
+from src.user.adapter.out_adapters.in_memory_user_persistence_adapter import InMemoryUserPersistenceAdapter
+from src.user.domain.user import User, UserId, UserToken
 
 
 class TestInMemoryEcgPersistenceAdapter:
-    _adapter: InMemoryUserPersistenceAdapter = InMemoryUserPersistenceAdapter()
+    _adapter: InMemoryUserPersistenceAdapter = InMemoryUserPersistenceAdapter({})
 
     def test_it_saves_an_user(self):
         # given
@@ -20,7 +20,7 @@ class TestInMemoryEcgPersistenceAdapter:
         assert user.username == "username"
 
     @freeze_time()
-    @patch('src.ecg.domain.user.uuid.uuid4', return_value="uuid4_generated_id")
+    @patch('src.user.domain.user.uuid.uuid4', return_value="uuid4_generated_id")
     def test_it_retrieves_an_user(self, mocker):
         # given
         user = User("username")
@@ -43,7 +43,7 @@ class TestInMemoryEcgPersistenceAdapter:
         assert result is None
 
     @freeze_time()
-    @patch('src.ecg.domain.user.uuid.uuid4', return_value="uuid4_generated_id")
+    @patch('src.user.domain.user.uuid.uuid4', return_value="uuid4_generated_id")
     def test_it_retrieves_an_user_by_token(self, mocker):
         # given
         user = User("username")

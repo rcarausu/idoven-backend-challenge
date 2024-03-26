@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import List
 
 from src.ecg.domain.ecg import EcgId, Lead
-from src.ecg.domain.user import UserToken
+from src.user.domain.user import UserToken
 
 
 @dataclass

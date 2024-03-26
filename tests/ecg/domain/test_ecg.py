@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 from freezegun import freeze_time
 
-from src.ecg.domain.user import UserId
+from src.user.domain.user import UserId
 from src.ecg.domain.ecg import Lead, ECG, EcgId
 
 

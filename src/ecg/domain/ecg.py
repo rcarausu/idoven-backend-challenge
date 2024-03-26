@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import List, Optional
 
-from src.ecg.domain.user import UserId
+from src.user.domain.user import UserId
 
 
 @dataclass

@@ -2,11 +2,11 @@ from freezegun import freeze_time
 
 from src.ecg.adapter.out_adapters.persistence.in_memory_ecg_persistence_adapter import InMemoryEcgPersistenceAdapter
 from src.ecg.domain.ecg import ECG, EcgId, Lead
-from src.ecg.domain.user import UserId
+from src.user.domain.user import UserId
 
 
 class TestInMemoryEcgPersistenceAdapter:
-    _adapter = InMemoryEcgPersistenceAdapter()
+    _adapter = InMemoryEcgPersistenceAdapter({})
 
     def test_it_saves_an_ecg(self):
         # given

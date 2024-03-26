@@ -7,8 +7,8 @@ from src.ecg.domain.ecg import ECG, EcgId
 
 class InMemoryEcgPersistenceAdapter(GetEcgPort, SaveEcgPort):
 
-    def __init__(self):
-        self.__repository = {}
+    def __init__(self, repository: dict):
+        self.__repository = repository
 
     def get(self, ecg_id: EcgId) -> Optional[ECG]:
         # O(1) retrieval for average case or O(n) in_adapters worst case (hash collisions or too high load factor)

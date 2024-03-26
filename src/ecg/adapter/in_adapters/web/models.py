@@ -13,15 +13,6 @@ class RegisterEsgInputModel(BaseModel):
     leads: list[LeadInputModel]
 
 
-class RegisterUserInputModel(BaseModel):
-    username: str
-
-
-class RegisterUserResponseModel(BaseModel):
-    username: str
-    token: str
-
-
 class SaveEcgResponseModel(BaseModel):
     id: str
 
