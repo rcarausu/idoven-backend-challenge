@@ -2,10 +2,10 @@ from unittest.mock import Mock, MagicMock
 
 from fastapi.testclient import TestClient
 
-from src.dependencies import register_ecg_service, load_ecg_insights_service
+from src.dependencies import register_ecg_service, get_insights_service
 from src.user.application.port.in_ports.errors import InvalidUserTokenError
 from src.ecg.application.port.out_ports.errors import EcgNotFoundError
-from src.insights.application.service.load_ecg_insights_service import LoadEcgInsightsService
+from src.insights.application.service.get_insights_service import GetInsightsService
 from src.ecg.application.service.register_ecg_service import RegisterEcgService
 from src.ecg.domain.ecg import EcgId
 from src.insights.domain.insights import Insights, Insight
@@ -72,13 +72,13 @@ class TestRegisterEcgRouter:
 
 
 class TestLoadEcgInsightsRouter:
-    mocked_service: LoadEcgInsightsService = MagicMock(spec=LoadEcgInsightsService)
+    mocked_service: GetInsightsService = MagicMock(spec=GetInsightsService)
 
-    def mocked_load_ecg_insights_service(self) -> LoadEcgInsightsService:
+    def mocked_load_ecg_insights_service(self) -> GetInsightsService:
         return self.mocked_service
 
     def setup_method(self):
-        app.dependency_overrides[load_ecg_insights_service] = self.mocked_load_ecg_insights_service
+        app.dependency_overrides[get_insights_service] = self.mocked_load_ecg_insights_service
 
     def teardown_method(self):
         # resetting side effect of mocked object, otherwise it's propagated to other test cases

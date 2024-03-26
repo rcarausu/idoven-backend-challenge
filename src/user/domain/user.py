@@ -7,10 +7,19 @@ from datetime import datetime, timezone
 class UserId:
     value: str = field(default_factory=lambda: str(uuid.uuid4()))
 
+    def __eq__(self, other):
+        return self.value == other.value
+
 
 @dataclass
 class UserToken:
     value: str = field(default_factory=lambda: str(uuid.uuid4()))
+
+    def __eq__(self, other):
+        return self.value == other.value
+
+    def __str__(self):
+        return self.value
 
 
 @dataclass

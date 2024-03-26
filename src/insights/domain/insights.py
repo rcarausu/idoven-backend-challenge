@@ -1,3 +1,4 @@
+import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import List
@@ -16,7 +17,19 @@ class Insight:
 
 
 @dataclass
+class InsightsId:
+    value: str = field(default_factory=lambda: uuid.uuid4())
+
+    def __eq__(self, other):
+        return self.value == other.value
+
+    def __str__(self):
+        return self.value
+
+
+@dataclass
 class Insights:
     ecg_id: EcgId()
     leads: List[Insight]
+    id: InsightsId = field(default_factory=lambda: InsightsId())
     create_date: datetime = field(default_factory=lambda: datetime.now(timezone.utc))

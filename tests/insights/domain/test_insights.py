@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 import pytest
 from freezegun import freeze_time
 
@@ -15,7 +17,8 @@ class TestInsights:
         assert e.value.args[0] == "number_of_zero_crossings cannot be negative"
 
     @freeze_time()
-    def test_it_creates_insights_successfully(self):
+    @patch('src.insights.domain.insights.uuid.uuid4', return_value="uuid4_generated_id")
+    def test_it_creates_insights_successfully(self, mocker):
         # given
         insights = Insights(EcgId("id"), [Insight('I', 10)])
         # then

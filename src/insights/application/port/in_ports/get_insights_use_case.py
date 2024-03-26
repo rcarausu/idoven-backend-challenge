@@ -7,13 +7,13 @@ from src.insights.domain.insights import Insights
 
 
 @dataclass
-class LoadEcgInsightsQuery:
-    id: EcgId
+class GetInsightsQuery:
+    ecg_id: EcgId
     user_token: UserToken
 
 
-class LoadEcgInsightsUseCase(metaclass=ABCMeta):
+class GetInsightsUseCase(metaclass=ABCMeta):
 
     @abstractmethod
-    def get_insights(self, query: LoadEcgInsightsQuery) -> Insights:
+    def get_insights(self, query: GetInsightsQuery) -> Insights:
         pass
