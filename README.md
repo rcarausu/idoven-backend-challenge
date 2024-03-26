@@ -15,28 +15,27 @@ system following this architecture design:
 
 ![hexagonal_architecture](resources/hexagonal_architecture.png)
 
-The directory structure is as follows:
+The directory structure for each feature (ECGs, Insights and Users) is as follows:
 
 - [src](src) &rarr; main package with all the source code.
-    - [ecg](src/ecg) &rarr; package with all the code related to the ECG feature.
-        - [adapter](src/ecg/adapter) &rarr; implementations of the interfaces (ports) that communicate with the
+    - [feature] &rarr; package with all the code related to the feature.
+        - [adapter] &rarr; implementations of the interfaces (ports) that communicate with the
           application core.
           There are two types of adapters:
             - *in_adapters* &rarr; they are implementations of external systems that communicate *inwards* with the
               application, such as HTTP, etc.
             - *out_adapters* &rarr; they are implementations of external system that communicate *outwards* with the
               application, such as databases, etc.
-        - [application](src/ecg/application) &rarr; interfaces and implementation of *use cases*.
-            - [ports](src/ecg/application/port) &rarr; interfaces and use cases that adapters implement for
+        - [application] &rarr; interfaces and implementation of *use cases*.
+            - [ports] &rarr; interfaces and use cases that adapters and services implement for
               communication with the application core. There are two types as well, *in_ports* and *out_ports*,
-              following the
-              same logic as with adapters.
-            - [service](src/ecg/application/service) &rarr; implementation of *use cases* .
-        - [domain](src/ecg/domain) &rarr; main domain model and business logic of the application.
+              following the same logic as with adapters.
+            - [service] &rarr; implementation of *use cases* .
+        - [domain] &rarr; main domain model and business logic of the application.
 
 ### Endpoints
 
-There are three main endpoints that the app implements:
+There are three main endpoints that the app implements + a health endpoint:
 
 * `GET /health/ping` &rarr; to check if the app is alive.
 * `POST /ecgs`: &rarr; to register a new ECG
