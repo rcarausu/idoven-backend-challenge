@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 
-from src.ecg.adapter.in_adapters.web.main import api_router
+from src.api_router import api_router
 
 app = FastAPI(
     title="ECG app",
