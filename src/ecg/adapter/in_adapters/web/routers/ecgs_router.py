@@ -46,6 +46,7 @@ def load_ecg_insights(ecg_id: str, x_user_token: Annotated[str | None, Header()]
     try:
         insights = service.get_insights(LoadEcgInsightsQuery(EcgId(ecg_id), user_token=UserToken(x_user_token)))
         return InsightsResponseModel(
+            ecg_id=insights.ecg_id.value,
             leads=[InsightResponseModel(name=lead.name, number_of_zero_crossings=lead.number_of_zero_crossings)
                    for lead in insights.leads]
         )

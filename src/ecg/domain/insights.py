@@ -1,5 +1,8 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from typing import List
+
+from src.ecg.domain.ecg import EcgId
 
 
 @dataclass
@@ -14,4 +17,6 @@ class Insight:
 
 @dataclass
 class Insights:
+    ecg_id: EcgId()
     leads: List[Insight]
+    create_date: datetime = field(default_factory=lambda: datetime.now(timezone.utc))

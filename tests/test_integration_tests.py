@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from fastapi.testclient import TestClient
 
 from src.ecg.adapter.out_adapters.persistence.in_memory_ecg_persistence_adapter import InMemoryEcgPersistenceAdapter
@@ -31,7 +33,8 @@ class TestIntegrationTests:
     def teardown_method():
         app.dependency_overrides = {}
 
-    def test_full_create_user_register_ecg_and_retrieve_insights_flow(self):
+    @patch('src.ecg.domain.ecg.uuid.uuid4', return_value="uuid4_generated_id")
+    def test_full_create_user_register_ecg_and_retrieve_insights_flow(self, mocker):
         health_response = client.get("/health/ping")
         # then
         assert health_response.status_code == 200
@@ -53,6 +56,7 @@ class TestIntegrationTests:
 
         assert insights_result.status_code == 200
         assert insights_result.json() == {
+            "ecg_id": "uuid4_generated_id",
             "leads": [
                 {
                     "name": "I",

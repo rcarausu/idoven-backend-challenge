@@ -1,5 +1,7 @@
 import pytest
+from freezegun import freeze_time
 
+from src.ecg.domain.ecg import EcgId
 from src.ecg.domain.insights import Insights, Insight
 
 
@@ -12,8 +14,9 @@ class TestInsights:
         # then
         assert e.value.args[0] == "number_of_zero_crossings cannot be negative"
 
+    @freeze_time()
     def test_it_creates_insights_successfully(self):
         # given
-        insights = Insights([Insight('I', 10)])
+        insights = Insights(EcgId("id"), [Insight('I', 10)])
         # then
-        assert insights == Insights([Insight('I', 10)])
+        assert insights == Insights(EcgId("id"), [Insight('I', 10)])

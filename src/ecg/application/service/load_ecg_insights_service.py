@@ -23,5 +23,6 @@ class LoadEcgInsightsService(LoadEcgInsightsUseCase):
             raise EcgNotFoundError(query.id)
 
         return Insights(
+            ecg.id,
             [Insight(lead.name, lead.number_of_zero_crossings()) for lead in ecg.leads]
         )

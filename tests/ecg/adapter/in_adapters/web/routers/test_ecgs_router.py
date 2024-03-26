@@ -110,6 +110,7 @@ class TestLoadEcgInsightsRouter:
     def test_it_returns_insights(self):
         # given
         self.mocked_service.get_insights.return_value = Insights(
+            EcgId("id"),
             leads=[
                 Insight("I", 10),
                 Insight("II", 2)
@@ -120,6 +121,7 @@ class TestLoadEcgInsightsRouter:
         # then
         assert response.status_code == 200
         assert response.json() == {
+            "ecg_id": "id",
             "leads": [
                 {
                     "name": "I",

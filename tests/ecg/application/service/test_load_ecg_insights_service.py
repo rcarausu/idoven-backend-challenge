@@ -2,6 +2,7 @@ from datetime import datetime
 from unittest.mock import Mock
 
 import pytest
+from freezegun import freeze_time
 
 from src.user.application.port.out_ports.get_user_port import GetUserPort
 from src.user.domain.user import UserId, UserToken, User
@@ -40,6 +41,7 @@ class TestLoadEcgInsightsService:
         # then
         assert e.value.message == "ECG not found for id id"
 
+    @freeze_time()
     def test_it_should_load_insights(self):
         # given
         ecg_id = EcgId("id")
@@ -57,6 +59,7 @@ class TestLoadEcgInsightsService:
         result = self.service.get_insights(LoadEcgInsightsQuery(ecg_id, UserToken()))
         # then
         assert result == Insights(
+            ecg_id,
             leads=[
                 Insight('I', 3),
                 Insight('II', 0)

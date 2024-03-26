@@ -23,4 +23,5 @@ class InsightResponseModel(BaseModel):
 
 
 class InsightsResponseModel(BaseModel):
+    ecg_id: str
     leads: List[InsightResponseModel]
