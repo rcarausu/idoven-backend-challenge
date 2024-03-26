@@ -33,7 +33,7 @@ class TestRegisterUserRouter:
         # then
         assert response.status_code == 401
         assert response.json() == {
-            "message": "Invalid admin token, cannot perform requested action"
+            "message": "Invalid admin token"
         }
 
     @patch('src.ecg.domain.user.uuid.uuid4', return_value="uuid4_generated_token")

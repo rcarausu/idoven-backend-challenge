@@ -7,13 +7,16 @@ from src.ecg.domain.user import User, UserId
 class InvalidAdminTokenError(Exception):
 
     def __init__(self):
-        self.message = "Invalid admin token, cannot perform requested action"
+        self.message = "Invalid admin token"
         super().__init__(self.message)
 
 
 @dataclass
 class AdminToken:
     value: str
+
+    def __eq__(self, other):
+        return self.value == other.value
 
 
 @dataclass

@@ -21,7 +21,7 @@ class TestRegisterUserService:
         with pytest.raises(InvalidAdminTokenError) as e:
             self.service.register_user(RegisterUserCommand(AdminToken("bad_token"), User("username")))
         # then
-        assert e.value.message == "Invalid admin token, cannot perform requested action"
+        assert e.value.message == "Invalid admin token"
 
     def test_it_should_register_user(self):
         # given
