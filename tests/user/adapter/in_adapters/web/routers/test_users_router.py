@@ -3,7 +3,7 @@ from unittest.mock import Mock, patch
 from fastapi.testclient import TestClient
 
 from src.dependencies import register_user_service
-from src.user.application.port.in_ports.register_user_use_case import InvalidAdminTokenError
+from src.user.application.port.in_ports.errors import InvalidAdminTokenError
 from src.user.application.service.register_user_service import RegisterUserService
 from src.user.domain.user import UserId
 from src.main import app

@@ -1,5 +1,6 @@
 from src.user.application.port.in_ports.register_user_use_case import RegisterUserCommand, RegisterUserUseCase, \
-    InvalidAdminTokenError, AdminToken
+    AdminToken
+from src.user.application.port.in_ports.errors import InvalidAdminTokenError
 from src.user.application.port.out_ports.save_user_port import SaveUserPort
 from src.user.domain.user import UserId
 

@@ -1,6 +1,7 @@
 import pytest
 
-from src.user.application.port.in_ports.register_user_use_case import InvalidAdminTokenError, AdminToken
+from src.user.application.port.in_ports.register_user_use_case import AdminToken
+from src.user.application.port.in_ports.errors import InvalidAdminTokenError
 from src.user.application.port.out_ports.save_user_port import SaveUserPort
 from src.user.application.service.register_user_service import RegisterUserCommand, RegisterUserService
 

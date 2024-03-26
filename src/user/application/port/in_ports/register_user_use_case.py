@@ -4,13 +4,6 @@ from dataclasses import dataclass
 from src.user.domain.user import User, UserId
 
 
-class InvalidAdminTokenError(Exception):
-
-    def __init__(self):
-        self.message = "Invalid admin token"
-        super().__init__(self.message)
-
-
 @dataclass
 class AdminToken:
     value: str

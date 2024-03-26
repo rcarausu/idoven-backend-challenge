@@ -5,8 +5,8 @@ from starlette.status import HTTP_201_CREATED, HTTP_401_UNAUTHORIZED
 
 from src.dependencies import RegisterUserServiceDep
 from src.user.adapter.in_adapters.web.models import RegisterUserInputModel, RegisterUserResponseModel
-from src.user.application.port.in_ports.register_user_use_case import RegisterUserCommand, AdminToken, \
-    InvalidAdminTokenError
+from src.user.application.port.in_ports.register_user_use_case import RegisterUserCommand, AdminToken
+from src.user.application.port.in_ports.errors import InvalidAdminTokenError
 from src.user.domain.user import User
 
 router = APIRouter()
