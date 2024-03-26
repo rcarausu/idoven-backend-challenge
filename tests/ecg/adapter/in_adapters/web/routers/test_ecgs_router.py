@@ -8,7 +8,7 @@ from src.ecg.application.port.out_ports.errors import EcgNotFoundError
 from src.insights.application.service.get_insights_service import GetInsightsService
 from src.ecg.application.service.register_ecg_service import RegisterEcgService
 from src.ecg.domain.ecg import EcgId
-from src.insights.domain.insights import Insights, Insight
+from src.insights.domain.insights import Insights, Insight, InsightsStatus
 from src.main import app
 
 client = TestClient(app)
@@ -71,7 +71,7 @@ class TestRegisterEcgRouter:
         assert response.json() == {"id": "uuid4_generated_id"}
 
 
-class TestLoadEcgInsightsRouter:
+class TestGetInsightsRouter:
     mocked_service: GetInsightsService = MagicMock(spec=GetInsightsService)
 
     def mocked_load_ecg_insights_service(self) -> GetInsightsService:
@@ -107,10 +107,29 @@ class TestLoadEcgInsightsRouter:
             "detail": "Invalid user token"
         }
 
+    def test_it_returns_accepted_if_insights_are_still_being_processed(self):
+        # given
+        self.mocked_service.get_insights.return_value = Insights(
+            EcgId("id"),
+            status=InsightsStatus.IN_PROGRESS,
+            leads=[
+                Insight("I", 10),
+                Insight("II", 2)
+            ]
+        )
+        # when
+        response = client.get("/ecgs/uuid4_generated_id/insights", headers={"x-user-token": ""})
+        # then
+        assert response.status_code == 202
+        assert response.json() == {
+            "detail": "Insights are still being processed"
+        }
+
     def test_it_returns_insights(self):
         # given
         self.mocked_service.get_insights.return_value = Insights(
             EcgId("id"),
+            status=InsightsStatus.DONE,
             leads=[
                 Insight("I", 10),
                 Insight("II", 2)

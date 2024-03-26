@@ -1,3 +1,5 @@
+import time
+
 from fastapi.testclient import TestClient
 
 from src.insights.application.service.process_insights_service import ProcessInsightsService
@@ -25,7 +27,7 @@ class TestIntegrationTests:
             self.in_memory_user_adapter, AdminToken("token")
         )
         app.dependency_overrides[register_ecg_service] = lambda: RegisterEcgService(
-            self.in_memory_ecg_adapter, self.in_memory_user_adapter
+            self.in_memory_ecg_adapter, self.in_memory_user_adapter, self.in_memory_insights_adapter
         )
         app.dependency_overrides[get_insights_service] = lambda: GetInsightsService(
             self.in_memory_ecg_adapter, self.in_memory_user_adapter, self.in_memory_insights_adapter
@@ -56,6 +58,9 @@ class TestIntegrationTests:
         assert ecg_result.status_code == 201
 
         ecg_id = ecg_result.json()["id"]
+
+        # sleeping to ensure background processing is done
+        time.sleep(1)
 
         insights_result = client.get(f"ecgs/{ecg_id}/insights", headers={"x-user-token": user_token})
 

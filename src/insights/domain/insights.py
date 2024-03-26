@@ -1,6 +1,7 @@
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+from enum import Enum
 from typing import List
 
 from src.ecg.domain.ecg import EcgId
@@ -27,9 +28,15 @@ class InsightsId:
         return self.value
 
 
+class InsightsStatus(Enum):
+    IN_PROGRESS = "IN_PROGRESS"
+    DONE = "DONE"
+
+
 @dataclass
 class Insights:
     ecg_id: EcgId()
     leads: List[Insight]
+    status: InsightsStatus = field(default_factory=lambda: InsightsStatus.IN_PROGRESS)
     id: InsightsId = field(default_factory=lambda: InsightsId())
     create_date: datetime = field(default_factory=lambda: datetime.now(timezone.utc))

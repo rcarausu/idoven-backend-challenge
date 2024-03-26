@@ -3,7 +3,7 @@ from typing import List
 from src.insights.application.port.out_ports.process_insights_use_case import ProcessInsightsCommand
 from src.insights.application.port.out_ports.process_insights_use_case import ProcessInsightsUseCase
 from src.insights.application.port.out_ports.save_insights_port import SaveInsightsPort
-from src.insights.domain.insights import Insights, Insight, InsightsId
+from src.insights.domain.insights import Insights, Insight, InsightsId, InsightsStatus
 
 
 class ProcessInsightsService(ProcessInsightsUseCase):
@@ -35,4 +35,4 @@ class ProcessInsightsService(ProcessInsightsUseCase):
                     number_of_zero_crossings=self._number_of_zero_crossings(lead.signal)
                 )
             )
-        return self._port.save(Insights(command.ecg_id, leads))
+        return self._port.save(Insights(command.ecg_id, leads, InsightsStatus.DONE))

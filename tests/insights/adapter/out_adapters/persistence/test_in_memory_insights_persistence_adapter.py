@@ -37,3 +37,16 @@ class TestInMemoryInsightsPersistenceAdapter:
         result = self._adapter.get_by_ecg_id(EcgId("id"))
         # then
         assert result == Insights(EcgId("id"), [Insight("I", 2)])
+
+    @freeze_time()
+    @patch('src.insights.domain.insights.uuid.uuid4', return_value="uuid4_generated_id")
+    def test_it_overwrites_insights_for_duplicated_ecg_id(self, mocker):
+        # given
+        ecg_id = EcgId("id")
+        duplicated = Insights(ecg_id, leads=[Insight("I", 2)])
+        self._adapter.save(Insights(ecg_id, leads=[]))
+        # when
+        self._adapter.save(duplicated)
+        result = self._adapter.get_by_ecg_id(ecg_id)
+        # then
+        assert result == duplicated

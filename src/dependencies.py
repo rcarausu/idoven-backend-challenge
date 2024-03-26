@@ -24,7 +24,7 @@ in_memory_insights_persistence_adapter = InMemoryInsightsPersistenceAdapter(in_m
 
 
 def register_ecg_service() -> RegisterEcgService:
-    return RegisterEcgService(in_memory_ecg_persistence_adapter, in_memory_user_persistence_adapter)
+    return RegisterEcgService(in_memory_ecg_persistence_adapter, in_memory_user_persistence_adapter, in_memory_insights_persistence_adapter)
 
 
 RegisterEcgServiceDep = Annotated[register_ecg_service, Depends()]

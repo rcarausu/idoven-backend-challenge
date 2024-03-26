@@ -19,6 +19,10 @@ class InMemoryInsightsPersistenceAdapter(GetInsightsPort, SaveInsightsPort):
         return None
 
     def save(self, insights: Insights) -> InsightsId:
-        # O(1) insertion by using a dictionary
+        # O(n) insertion since we need to iterate to find any possible duplicates and overwrite them
+        for insight_id in self.__repository.keys():
+            if self.__repository[insight_id].ecg_id == insights.ecg_id:
+                self.__repository[insight_id] = insights
+                return insight_id
         self.__repository[insights.id.value] = insights
         return insights.id

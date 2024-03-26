@@ -4,7 +4,7 @@ from src.insights.application.port.in_ports.errors import InsightsNotFoundError
 from src.insights.application.port.in_ports.get_insights_use_case import GetInsightsUseCase, \
     GetInsightsQuery
 from src.insights.application.port.out_ports.get_insights_port import GetInsightsPort
-from src.insights.domain.insights import Insights
+from src.insights.domain.insights import Insights, InsightsStatus
 from src.user.application.port.in_ports.errors import InvalidUserTokenError
 from src.user.application.port.out_ports.get_user_port import GetUserPort
 
