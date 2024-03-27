@@ -9,7 +9,7 @@ class AppConfig:
 
 
 def configuration() -> AppConfig:
-    path = os.environ.get("ECG_CONFIG", "resources/config.ini")
+    path = os.environ.get("SETTINGS_PATH", "resources/config.ini")
     config = configparser.ConfigParser()
     config.read(path)
     return AppConfig(

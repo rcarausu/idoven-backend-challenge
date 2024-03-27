@@ -74,6 +74,15 @@ once the app is deployed.
 
 ## Running
 
+### With Docker
+```shell
+docker build --target deploy -t idoven-backend-challenge .
+
+docker run -p 8000:8000 --rm --name idoven-backend-challenge-local-deploy idoven-backend-challenge
+```
+
+### Locally
+
 * Install Python 3.11. You can use [pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
   to install the required Python version.
 
@@ -108,7 +117,7 @@ pip install -r requirements.txt
 * Launch the app using the built-in uvicorn server
 
 ```shell
-uvicorn src.main:app --reload
+uvicorn src.main:app --port 8000 --reload
 ```
 
 or by executing the launch script
@@ -129,6 +138,14 @@ pyenv uninstall idoven-venv-3.11.7
 
 ## Testing
 
+### With Docker
+```shell
+docker build --target run_tests -t idoven-backend-challenge-tests .
+
+docker run --rm --name idoven-backend-challenge-tests-execution idoven-backend-challenge-tests
+```
+
+### Locally
 After installing dependencies, just run pytest to execute the tests.
 
 ```shell
