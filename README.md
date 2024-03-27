@@ -33,6 +33,11 @@ The directory structure for each feature (ECGs, Insights and Users) is as follow
             - [service] &rarr; implementation of *use cases* .
         - [domain] &rarr; main domain model and business logic of the application.
 
+
+**Note**: To simplify development, only *in memory* persistence adapters have been implemented.
+For adding any other solution, it's as simple as implementing a new adapter for it (PostgreSQL, Mongo, Redis, etc.)
+and changing the dependency in the service that requires it.
+
 ### Endpoints
 
 There are three main endpoints that the app implements + a health endpoint:
