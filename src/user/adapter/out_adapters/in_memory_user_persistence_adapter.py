@@ -19,6 +19,18 @@ class InMemoryUserPersistenceAdapter(GetUserPort, SaveUserPort):
         return None
 
     def save(self, user: User) -> UserId:
-        # O(1) insertion by using a dictionary
+        # O(n) insertion since we need to iterate to find any possible duplicates and overwrite them, since
+        #  users should be unique per username
+        for user_id in self.__repository.keys():
+            current_user: User = self.__repository[user_id]
+            if self.__repository[user_id].username == user.username:
+                updated_user = User(
+                    id=current_user.id,
+                    username=current_user.username,
+                    token=user.token,
+                    create_date=current_user.create_date
+                )
+                self.__repository[user_id] = updated_user
+                return updated_user.id
         self.__repository[user.id.value] = user
         return user.id

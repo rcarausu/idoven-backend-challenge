@@ -9,7 +9,10 @@ from src.insights.domain.insights import Insights, Insight, InsightsId
 
 
 class TestInMemoryInsightsPersistenceAdapter:
-    _adapter: InMemoryInsightsPersistenceAdapter = InMemoryInsightsPersistenceAdapter({})
+    _adapter: InMemoryInsightsPersistenceAdapter
+
+    def setup_method(self):
+        self._adapter = InMemoryInsightsPersistenceAdapter({})
 
     @freeze_time()
     @patch('src.insights.domain.insights.uuid.uuid4', return_value="uuid4_generated_id")

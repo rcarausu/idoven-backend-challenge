@@ -7,7 +7,10 @@ from src.user.domain.user import User, UserId, UserToken
 
 
 class TestInMemoryEcgPersistenceAdapter:
-    _adapter: InMemoryUserPersistenceAdapter = InMemoryUserPersistenceAdapter({})
+    _adapter: InMemoryUserPersistenceAdapter
+
+    def setup_method(self):
+        self._adapter = InMemoryUserPersistenceAdapter({})
 
     def test_it_saves_an_user(self):
         # given

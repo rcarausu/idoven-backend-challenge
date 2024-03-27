@@ -19,10 +19,19 @@ class InMemoryInsightsPersistenceAdapter(GetInsightsPort, SaveInsightsPort):
         return None
 
     def save(self, insights: Insights) -> InsightsId:
-        # O(n) insertion since we need to iterate to find any possible duplicates and overwrite them
+        # O(n) insertion since we need to iterate to find any possible duplicates and overwrite them, since
+        #  insights should be unique per ecg_id
         for insight_id in self.__repository.keys():
-            if self.__repository[insight_id].ecg_id == insights.ecg_id:
-                self.__repository[insight_id] = insights
-                return insight_id
+            current_insights = self.__repository[insight_id]
+            if current_insights.ecg_id == insights.ecg_id:
+                updated_insights = Insights(
+                    id=current_insights.id,
+                    ecg_id=current_insights.ecg_id,
+                    create_date=current_insights.create_date,
+                    leads=insights.leads,
+                    status=insights.status
+                )
+                self.__repository[insight_id] = updated_insights
+                return updated_insights.id
         self.__repository[insights.id.value] = insights
         return insights.id
