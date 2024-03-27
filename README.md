@@ -143,6 +143,10 @@ pyenv uninstall idoven-venv-3.11.7
 
 ## Testing
 
+To get and idea of a full user flow (from user registration to insights consulting), you can consult the 
+[test_integration_tests.py](tests/test_integration_tests.py) file, where there is an integration tests that mimics
+all the steps that a user would do to perform the mentioned actions.
+
 ### With Docker
 ```shell
 docker build --target run_tests -t idoven-backend-challenge-tests .
